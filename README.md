@@ -18,7 +18,7 @@
 
 **GitHub Pages**
 
-* [Ссылка на  проект в GitHub Pages](https://plotnikovaksyu.github.io/russian-travel/index.html)
+* [Ссылка на  проект в GitHub Pages](https://plotnikovaksyu.github.io/mesto/index.html)
 
 
 **Технологии**
