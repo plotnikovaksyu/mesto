@@ -1,0 +1,21 @@
+.popup__edit-discription {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+    color: #000000;
+    width: 358px;
+    min-height: 27px;
+    margin: 0 auto;
+    padding: 0;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    text-align: start;
+    border-bottom: 1px solid rgba(192, 192, 192, 0.2);
+}
+
+@media screen and (max-width: 680px) {
+    .popup__edit-discription {
+        max-width: 238px;
+    }
+}

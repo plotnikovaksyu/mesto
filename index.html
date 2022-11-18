@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -13,13 +13,137 @@
     <header class="header page__header">
         <img class="header__logo" src="./images/header-logo.svg" alt="Логотип Место">
     </header>
-    <main>
-        <section>
+
+    <main class="content page__content">
+        <section class="profile">
+            <div class="profile__info-container">
+                <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар профиля">
+                <div class="profile__info">
+                    <h1 class="profile__title">Жак-Ив Кусто</h1>
+                    <p class="profile__discription">Исследователь океана</p>
+                    <button class="profile__edit-button" type="button">
+                        <img class="profile__edit-button-img" src="./images/edit-button.png"
+                            alt="кнопка редактирования">
+                    </button>
+                </div>
+            </div>
+            <button class="profile__add-button" type="button">
+                <img class="profile__add-button-img" src="./images/add-button.png" alt="кнопка добавления постов">
+            </button>
+
         </section>
-        <section>
+        <section class="grid">
+            <ul class="grid__elements">
+                <li class="grid__element">
+                    <img class="grid__image" src="./images/grid-altai.jpg" alt="Алтай">
+                    <div class="grid__container">
+                        <h2 class="grid__title">Алтай</h2>
+                        <button class="grid__button">
+                            <svg class="grid__button-img" xmlns="http://www.w3.org/2000/svg" width="22" height="19"
+                                fill="none">
+                                <path
+                                    d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214ZM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02Z"
+                                    fill="#000" />
+                            </svg>
+                        </button>
+
+                    </div>
+                </li>
+                <li class="grid__element">
+                    <img class="grid__image" src="./images/grid-moscow.jpg" alt="Москва">
+                    <div class="grid__container">
+                        <h2 class="grid__title">Москва</h2>
+                        <button class="grid__button">
+                            <svg class="grid__button-img" xmlns="http://www.w3.org/2000/svg" width="22" height="19"
+                                fill="none">
+                                <path
+                                    d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214ZM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02Z"
+                                    fill="#000" />
+                            </svg>
+                        </button>
+                    </div>
+                </li>
+                <li class="grid__element">
+                    <img class="grid__image" src="./images/grid-ruskeala.jpg" alt="Рускеала">
+                    <div class="grid__container">
+                        <h2 class="grid__title">Рускеала</h2>
+                        <button class="grid__button">
+                            <svg class="grid__button-img" xmlns="http://www.w3.org/2000/svg" width="22" height="19"
+                                fill="none">
+                                <path
+                                    d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214ZM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02Z"
+                                    fill="#000" />
+                            </svg>
+                        </button>
+                    </div>
+                </li>
+                <li class="grid__element">
+                    <img class="grid__image" src="./images/grid-sochi.jpg" alt="Сочи">
+                    <div class="grid__container">
+                        <h2 class="grid__title">Сочи</h2>
+                        <button class="grid__button">
+                            <svg class="grid__button-img" xmlns="http://www.w3.org/2000/svg" width="22" height="19"
+                                fill="none">
+                                <path
+                                    d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214ZM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02Z"
+                                    fill="#000" />
+                            </svg>
+                        </button>
+                    </div>
+                </li>
+                <li class="grid__element">
+                    <img class="grid__image" src="./images/grid-spb.jpg" alt="Санкт-Петербург">
+                    <div class="grid__container">
+                        <h2 class="grid__title">Санкт-Петербург</h2>
+                        <button class="grid__button">
+                            <svg class="grid__button-img" xmlns="http://www.w3.org/2000/svg" width="22" height="19"
+                                fill="none">
+                                <path
+                                    d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214ZM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02Z"
+                                    fill="#000" />
+                            </svg>
+                        </button>
+                    </div>
+                </li>
+                <li class="grid__element">
+                    <img class="grid__image" src="./images/gris-teriberka.jpg" alt="Териберка">
+                    <div class="grid__container">
+                        <h2 class="grid__title">Териберка</h2>
+                        <button class="grid__button">
+                            <svg class="grid__button-img" xmlns="http://www.w3.org/2000/svg" width="22" height="19"
+                                fill="none">
+                                <path
+                                    d="M20.3 9.786c2.267-2.243 2.267-5.884 0-8.104-2.269-2.243-5.951-2.243-8.22 0l-1.1 1.11-1.1-1.088C7.612-.56 3.93-.56 1.684 1.682A5.657 5.657 0 0 0 0 5.745a5.75 5.75 0 0 0 1.684 4.063L10.98 19l9.32-9.214ZM1.436 5.745c0-1.155.45-2.22 1.28-3.02A4.33 4.33 0 0 1 5.771 1.46c1.1 0 2.2.422 3.054 1.265l2.155 2.11 2.156-2.132c1.684-1.665 4.446-1.665 6.108 0 .808.8 1.28 1.865 1.28 3.02 0 1.154-.45 2.22-1.28 3.02l-8.264 8.192-8.263-8.17c-.808-.822-1.28-1.888-1.28-3.02Z"
+                                    fill="#000" />
+                            </svg>
+                        </button>
+                    </div>
+                </li>
+            </ul>
         </section>
+        <section class="popup">
+            <div class="popup__container">
+                <button class="popup__close">
+                    <img class="popup__close-icon" src="./images/Close Icon.svg"
+                        alt="кнопка закрытия окна редактирования">
+                </button>
+                <h2 class="popup__title">Редактировать профиль</h2>
+                <form class="popup__form" name="form-edit">
+                    <fieldset class="popup__edit">
+                        <input class="popup__edit-name" type="text" name="name" required>
+                        <input class="popup__edit-discription" type="text" name="discription">
+                        <button type="submit" class="popup__submit-button">Сохранить</button>
+                    </fieldset>
+
+                </form>
+            </div>
+        </section>
+
     </main>
-    <footer></footer>
+    <footer>
+        <p class="footer page__footer">&copy;&nbsp;2020 Mesto Russia</p>
+    </footer>
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>
