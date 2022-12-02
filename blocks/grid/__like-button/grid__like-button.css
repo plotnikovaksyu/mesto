@@ -1,4 +1,4 @@
-.grid__button {
+.grid__like-button {
     background-color: #ffffff;
     border: none;
     padding: 0;
@@ -10,7 +10,7 @@
     background-size: contain;
 }
 
-.grid__button:hover {
+.grid__like-button:hover {
     opacity: .5;
     transition: opacity .1s ease .1s;
 }

@@ -27,73 +27,13 @@
             </div>
             <button class="profile__add-button" type="button" aria-label="Добавить">
             </button>
-
         </section>
+
         <section class="grid">
             <ul class="grid__elements">
-                <li class="grid__list">
-                    <article class="grid__element">
-                        <img class="grid__image" src="./images/grid-altai.jpg" alt="Алтай">
-                        <div class="grid__container">
-                            <h2 class="grid__title">Алтай</h2>
-                            <button class="grid__button" type="button" aria-label="Нравится">
-                            </button>
-                        </div>
-                    </article>
-
-                </li>
-                <li class="grid__list">
-                    <article class="grid__element">
-                        <img class="grid__image" src="./images/grid-moscow.jpg" alt="Москва">
-                        <div class="grid__container">
-                            <h2 class="grid__title">Москва</h2>
-                            <button class="grid__button" type="button" aria-label="Нравится">
-                            </button>
-                        </div>
-                    </article>
-                </li>
-                <li class="grid__list">
-                    <article class="grid__element">
-                        <img class="grid__image" src="./images/grid-ruskeala.jpg" alt="Рускеала">
-                        <div class="grid__container">
-                            <h2 class="grid__title">Рускеала</h2>
-                            <button class="grid__button" type="button" aria-label="Нравится">
-                            </button>
-                        </div>
-                    </article>
-                </li>
-                <li class="grid__list">
-                    <article class="grid__element">
-                        <img class="grid__image" src="./images/grid-sochi.jpg" alt="Сочи">
-                        <div class="grid__container">
-                            <h2 class="grid__title">Сочи</h2>
-                            <button class="grid__button" type="button" aria-label="Нравится">
-                            </button>
-                        </div>
-                    </article>
-                </li>
-                <li class="grid__list">
-                    <article class="grid__element">
-                        <img class="grid__image" src="./images/grid-spb.jpg" alt="Санкт-Петербург">
-                        <div class="grid__container">
-                            <h2 class="grid__title">Санкт-Петербург</h2>
-                            <button class="grid__button" type="button" aria-label="Нравится">
-                            </button>
-                        </div>
-                    </article>
-                </li>
-                <li class="grid__list">
-                    <article class="grid__element">
-                        <img class="grid__image" src="./images/gris-teriberka.jpg" alt="Териберка">
-                        <div class="grid__container">
-                            <h2 class="grid__title">Териберка</h2>
-                            <button class="grid__button" type="button" aria-label="Нравится">
-                            </button>
-                        </div>
-                    </article>
-                </li>
             </ul>
         </section>
+
         <section class="popup">
             <div class="popup__container">
                 <button class="popup__close" type="button" aria-label="Закрыть без сохранения">
@@ -101,12 +41,38 @@
                 <h2 class="popup__title">Редактировать профиль</h2>
                 <form class="popup__form" name="form-edit">
                     <fieldset class="popup__edit">
-                        <input class="popup__input popup__input_name" type="text" name="name" required placeholder="#">
+                        <input class="popup__input popup__input_name" type="text" name="name" required
+                            placeholder="Жак-Ив Кусто">
                         <input class="popup__input popup__input_discription" type="text" name="discription"
-                            placeholder="#">
+                            placeholder="Исследователь океана">
                         <button type="submit" class="popup__submit-button" aria-label="Сохранить">Сохранить</button>
                     </fieldset>
                 </form>
+            </div>
+        </section>
+        <section class="popup popup_add">
+            <div class="popup__container">
+                <button class="popup__close popup__close_add" type="button" aria-label="Закрыть без сохранения">
+                </button>
+                <h2 class="popup__title">Новое место</h2>
+                <form class="popup__form popup__form_add" name="form-add">
+                    <fieldset class="popup__edit">
+                        <input class="popup__input popup__input_place" type="text" name="place" placeholder="Название">
+                        <input class="popup__input popup__input_img" type="url" name="img"
+                            placeholder="Ссылка на картинку">
+                        <button type="submit" class="popup__submit-button" aria-label="Сохранить">Сохранить</button>
+                    </fieldset>
+                </form>
+            </div>
+        </section>
+
+        <section class="popup popup_img">
+
+            <div class="popup__box">
+                <button class="popup__close popup__close_img" type="button" aria-label="Закрыть без сохранения">
+                </button>
+                <img class="popup__img" src="#" alt="здесь должна быть фотография">>
+                <h2 class="popup__title popup__title_img"></h2>
             </div>
         </section>
 
@@ -114,7 +80,25 @@
     <footer>
         <p class="footer page__footer">&copy;&nbsp;2020 Mesto Russia</p>
     </footer>
-    <script defer src="./scripts/index.js"></script>
+
+
+
+    <script defer src="./scripts/index.js" type="module"></script>
+
+    <template id="grid-template">
+        <li class="grid__list">
+            <button class="grid__delete-button" type="button" aria-label="Удалить"></button>
+            <article class="grid__element">
+                <img class="grid__image" src="#" alt="здесь должна быть фотография">
+                <div class="grid__container">
+                    <h2 class="grid__title"></h2>
+                    <button class="grid__like-button" type="button" aria-label="Мне нравится">
+                    </button>
+                </div>
+            </article>
+        </li>
+    </template>
+
 </body>
 
 </html>
