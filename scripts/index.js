@@ -1,16 +1,15 @@
 import initialCards from './data.js';
 
 // DOM узлы //
-const popupElement = document.querySelector('.popup');
-const popupCloseButtonElement = popupElement.querySelector('.popup__close');
-const popupSubmitButtonElement = popupElement.querySelector('.popup__submit-button');
+const popupProfile = document.querySelector('.popup_profile');
+const popupProfileCloseButtonElement = popupProfile.querySelector('.popup__close_profile');
 
-const popupOpenButtonElement = document.querySelector('.profile__edit-button');
+const popupProfileOpenButtonElement = document.querySelector('.profile__edit-button_profile');
 
-const formElement = popupElement.querySelector('.popup__form');
+const formProfileElement = popupProfile.querySelector('.popup__form_profile');
 
-const nameInput = popupElement.querySelector('.popup__input_name');
-const discriptionInput = popupElement.querySelector('.popup__input_discription');
+const nameInput = popupProfile.querySelector('.popup__input_name');
+const discriptionInput = popupProfile.querySelector('.popup__input_discription');
 const profileName = document.querySelector('.profile__title');
 const profileDiscription = document.querySelector('.profile__discription');
 
@@ -41,44 +40,42 @@ const closePopup = function (item) {
 const openPopupProfile = function () {
   nameInput.value = profileName.textContent;
   discriptionInput.value = profileDiscription.textContent;
-  openPopup(popupElement)
+  openPopup(popupProfile)
 }
 
-const closePopupByClickOverlay = function (evt) {
+//const closePopupByClickOverlay = function (evt) {
   //console.log(evt.target, evt.currentTarget);
-  if (evt.target !== evt.currentTarget) {
-    return;
-  }
-  closePopup(popupElement);
-  closePopup(popupAddElement);
-  closePopup(popupImgZoomElement);
-}
+  //if (evt.target !== evt.currentTarget) {
+    //return;
+  //}
+  //closePopup('popup_is-opened')
+//}
 
 //обработчики событий 
-popupOpenButtonElement.addEventListener('click', openPopupProfile);
+popupProfileOpenButtonElement.addEventListener('click', openPopupProfile);
 popupAddOpenButtonElement.addEventListener('click', function () {
   openPopup(popupAddElement)
 });
 
-popupCloseButtonElement.addEventListener('click', function () {
-  closePopup(popupElement)
+popupProfileCloseButtonElement.addEventListener('click', function () {
+  closePopup(popupProfile)
 });
 popupCloseButtonAddElemen.addEventListener('click', function () {
   closePopup(popupAddElement)
 });
 
-popupElement.addEventListener('click', closePopupByClickOverlay);
-popupAddElement.addEventListener('click', closePopupByClickOverlay);
-popupImgZoomElement.addEventListener('click', closePopupByClickOverlay);
+//popupProfile.addEventListener('click', closePopupByClickOverlay);
+//popupAddElement.addEventListener('click', closePopupByClickOverlay);
+//popupImgZoomElement.addEventListener('click', closePopupByClickOverlay);
 
 // Обработчик «отправки» формы для профайла
 function formSubmitHandler(evt) {
   evt.preventDefault(); //отмена дефолтного поведения, чтобы браузер не перезагрузился
   profileName.textContent = nameInput.value;
   profileDiscription.textContent = discriptionInput.value;
-  closePopup(popupElement);
+  closePopup(popupProfile);
 }
-formElement.addEventListener('submit', formSubmitHandler);
+formProfileElement.addEventListener('submit', formSubmitHandler);
 
 // функция поставить и удалить лайк
 const handelClickLikeButton = function (evt) {
