@@ -21,7 +21,6 @@ const popupAddOpenButtonElement = document.querySelector('.profile__add-button')
 const popupCloseButtonAddElemen = document.querySelector('.popup__close_add');
 
 const formAddElement = document.querySelector('.popup__form_add');
-console.log(formAddElement)
 const popupImgZoomElement = document.querySelector('.popup_img');
 const popupImgZoomTitle = document.querySelector('.popup__title_img');
 const popupImgZoomPhoto = document.querySelector('.popup__img');
@@ -31,10 +30,12 @@ const popupImgZoomClose = document.querySelector('.popup__close_img');
 //функции на открытие и закрытие попапов
 const openPopup = function (item) {
   item.classList.add('popup_is-opened');
+  document.addEventListener('keydown', keyHandler);
 }
 
 const closePopup = function (item) {
   item.classList.remove('popup_is-opened');
+  document.removeEventListener('keydown', keyHandler);
 }
 
 const openPopupProfile = function () {
@@ -43,15 +44,28 @@ const openPopupProfile = function () {
   openPopup(popupProfile)
 }
 
-//const closePopupByClickOverlay = function (evt) {
-  //console.log(evt.target, evt.currentTarget);
-  //if (evt.target !== evt.currentTarget) {
-    //return;
-  //}
-  //closePopup('popup_is-opened')
-//}
 
-//обработчики событий 
+// функция закрытия попапов через overlay
+const closePopupByClickOverlay = function (evt) {
+  //console.log(evt.target, evt.currentTarget);
+  if (evt.target !== evt.currentTarget) {
+    return;
+  }
+  const openPopups = document.querySelector('.popup_is-opened');
+  closePopup(openPopups);
+}
+
+
+// функция закрытия попапа через клавишу Escape 
+const keyHandler = (evt) => {
+  if (evt.key === 'Escape') {
+    const openPopups = document.querySelector('.popup_is-opened');
+    closePopup(openPopups);
+  }
+}
+
+
+//обработчики событий открытия и закрытия попапов
 popupProfileOpenButtonElement.addEventListener('click', openPopupProfile);
 popupAddOpenButtonElement.addEventListener('click', function () {
   openPopup(popupAddElement)
@@ -64,9 +78,10 @@ popupCloseButtonAddElemen.addEventListener('click', function () {
   closePopup(popupAddElement)
 });
 
-//popupProfile.addEventListener('click', closePopupByClickOverlay);
-//popupAddElement.addEventListener('click', closePopupByClickOverlay);
-//popupImgZoomElement.addEventListener('click', closePopupByClickOverlay);
+popupProfile.addEventListener('click', closePopupByClickOverlay);
+popupAddElement.addEventListener('click', closePopupByClickOverlay);
+popupImgZoomElement.addEventListener('click', closePopupByClickOverlay);
+
 
 // Обработчик «отправки» формы для профайла
 function formSubmitHandler(evt) {
@@ -77,15 +92,18 @@ function formSubmitHandler(evt) {
 }
 formProfileElement.addEventListener('submit', formSubmitHandler);
 
+
 // функция поставить и удалить лайк
 const handelClickLikeButton = function (evt) {
   evt.target.classList.toggle('grid__fill');
 }
 
+
 //функция удалить элемент
 const handelDeleteGridElement = function (evt) {
   evt.target.closest('.grid__list').remove();
 }
+
 
 // создание карточки через template 
 const createCard = function (item) {
@@ -99,7 +117,6 @@ const createCard = function (item) {
   gridLikeButton.addEventListener('click', handelClickLikeButton);
   gridDeleteButton.addEventListener('click', handelDeleteGridElement);
 
-
   gridTitle.textContent = item.name;
   gridImg.src = item.link;
 
@@ -111,6 +128,8 @@ const createCard = function (item) {
 
   return grid;
 }
+
+
 //обработчик для закрытия zoom через кнопку Х
 popupImgZoomClose.addEventListener('click', function () {
   closePopup(popupImgZoomElement);
@@ -118,7 +137,6 @@ popupImgZoomClose.addEventListener('click', function () {
 
 const placeInput = document.querySelector('.popup__input_place');
 const imgInput = document.querySelector('.popup__input_img');
-
 
 
 //добавление карточек
@@ -132,7 +150,6 @@ initialCards.forEach(function (item) {
 });
 
 
-
 function cardSubmitHandler(evt) {
   evt.preventDefault(); //отмена дефолтного поведения, чтобы браузер не перезагрузился
   const cards =
@@ -143,15 +160,17 @@ function cardSubmitHandler(evt) {
 
   renderGridElement(cards, gridListElement)
 
-  placeInput.value = '';
-  imgInput.value = '';
+  formAddElement.reset()
   closePopup(popupAddElement);
 }
 formAddElement.addEventListener('submit', cardSubmitHandler);
 
 
-
-
-
+// функция создания новых карточек через клавишу Enter
+const submitByEnter = (evt) => {
+  if (evt.key === 'Escape') {
+    cardSubmitHandler();
+  }
+}
 
 

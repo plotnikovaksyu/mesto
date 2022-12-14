@@ -48,5 +48,7 @@
 @import url('../blocks/popup/__box/popup__box.css');
 @import url('../blocks/popup/__close/_img/popup__close_img.css');
 @import url('../blocks/popup/_img/popup_img.css');
+@import url('../blocks/popup/__text-error/popup__text-error.css');
+@import url('../blocks/popup/__submit-button/_disabled/popup__submit-button_disabled.css');
 /* footer */
 @import url('../blocks/footer/footer.css');
