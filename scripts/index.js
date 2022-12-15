@@ -107,13 +107,13 @@ const createCard = function (item) {
 
   gridTitle.textContent = item.name;
   gridImg.src = item.link;
-  gridImg.alt = 'Тут должна быть фотография';
+  gridImg.alt = 'Фотография' + ' ' + item.name;
 
   gridImg.addEventListener('click', function () {
     openPopup(popupImgZoomElement)
     popupImgZoomTitle.textContent = gridTitle.textContent;
     popupImgZoomPhoto.src = gridImg.src;
-    popupImgZoomPhoto.alt = 'Тут должна быть фотография';
+    popupImgZoomPhoto.alt = 'Фотография' + ' ' + gridTitle.textContent;
   })
 
   return grid;
@@ -147,9 +147,8 @@ function handleCardsFormSubmit(evt) {
 
   formAddElement.reset()
 
-  const submitButtonAdd = document.querySelector('.popup__submit-button_add')
-  submitButtonAdd.classList.add('popup__submit-button_disabled') //деактивация кнопки сохранить
-  submitButtonAdd.disabled = 'disabled'
+  evt.submitter.classList.add('popup__submit-button_disabled') //деактивация кнопки сохранить
+  evt.submitter.disabled = 'disabled'
 
   closePopup(popupAddElement);
 
