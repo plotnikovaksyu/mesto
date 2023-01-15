@@ -5,64 +5,79 @@ class FormValidator {
         this._submitButtonSelector = formValid.submitButtonSelector;
         this._inactiveButtonClass = formValid.inactiveButtonClass;
         this._formElement = formElement;
+        this._submitButton = this._formElement.querySelector(this._submitButtonSelector);
+        this._inputsList = [... this._formElement.querySelectorAll(this._inputSelector)]; //nodeList в массив
+        //this._error = document.querySelector(`#${input.id}-error`);
     }
 
-// функция проверки на валидность
-_checkInputValidity = (input) => {
-    const error = document.querySelector(`#${input.id}-error`);
-    if (input.validity.valid) {
-        error.textContent = ''
+    // функция проверки на валидность
+    _checkInputValidity = (input) => {
+        const error = document.querySelector(`#${input.id}-error`);
+        if (input.validity.valid) {
+            error.textContent = ''
+        }
+        else {
+            error.textContent = input.validationMessage
+        }
     }
-    else {
-        error.textContent = input.validationMessage
+
+
+
+    // функция включения и отключения кнопки сохранить
+    _toggleSubmitButton = (inputs) => {
+
+        const isFormValid = inputs.every(input => {
+            return input.validity.valid
+        })
+        if (isFormValid) {
+            this._submitButton.classList.remove(this._inactiveButtonClass)
+            this._submitButton.disabled = ''
+        }
+        else {
+            this._toggleButtonState()
+        }
     }
-}
 
 
-// функция включения и отключения кнопки сохранить
-_toggleSubmitButton = (inputs, submitButton) => {
-
-    const isFormValid = inputs.every(input => {
-        return input.validity.valid
-    })
-    if (isFormValid) {
-        submitButton.classList.remove(this._inactiveButtonClass)
-        submitButton.disabled = ''
-    }
-    else {
-        submitButton.classList.add(this._inactiveButtonClass)
-        submitButton.disabled = 'disabled'
-    }
-}
+    // функция обработки всех форм и активации валидации
+    _setEventListeners = () => {
 
 
-// функция обработки всех форм и активации валидации
-_setEventListeners = () => {
-    
-    const forms = [...document.querySelectorAll(this._formSelector)];
-    
-    forms.forEach(form => {
-        const inpus = [...form.querySelectorAll(this._inputSelector)]; //nodeList в массив
-        const submitButton = form.querySelector(this._submitButtonSelector);
-        
-
-        inpus.forEach(input => {
+        this._inputsList.forEach(input => {
             input.addEventListener('input', () => {
                 this._checkInputValidity(input)
-                this._toggleSubmitButton(inpus, submitButton)
+                this._toggleSubmitButton(this._inputsList)
             })
         })
-    });      
-}
 
 
-enableValidation = () => {
-    this._formElement.addEventListener('submit', (evt) => {
-        evt.preventDefault();    
-    })
+    }
 
-    this._setEventListeners()
-}
+    _toggleButtonState = (evt) => {
+        this._submitButton.classList.add(this._inactiveButtonClass)
+        this._submitButton.disabled = 'disabled'
+    }
+    // _hideError = (input) => {
+       
+    // }
+
+    // resetValidation() {
+    //     this._toggleButtonState(); //<== управляем кнопкой ==
+
+        // this._inputList.forEach((inputElement) => {
+        //     this._hideError(inputElement) //<==очищаем ошибки ==
+        // });
+    // }
+
+
+    enableValidation = () => {
+        this._formElement.addEventListener('submit', (evt) => {
+            evt.preventDefault();
+            this._toggleButtonState(evt);
+        })
+
+        this._setEventListeners()
+    }
 }
 
 

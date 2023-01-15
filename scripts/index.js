@@ -1,7 +1,8 @@
 import Card from './card.js'
 import initialCards from './data.js';
-import formValid from './validData.js'
+import {formValid} from './config.js'
 import FormValidator from './formValidator.js'
+
 
 // DOM узлы //
 const popups = [...document.querySelectorAll('.popup')];
@@ -61,7 +62,8 @@ const closePopupByEsc = (evt) => {
 //обработчики событий открытия и закрытия попапов
 popupProfileOpenButtonElement.addEventListener('click', openPopupProfile);
 popupAddOpenButtonElement.addEventListener('click', function () {
-  openPopup(popupAddElement)
+  openPopup(popupAddElement);
+  //resetValidation();
 });
 
 
@@ -94,28 +96,34 @@ function handleOpenPopup(link, name) {
   popupImgZoomPhoto.alt = 'Фотография' + ' ' + name;
 }
 
-//отрисовка карточек из даты
-initialCards.forEach((item) => {
-  const card = new Card(item.name, item.link, handleOpenPopup);
-
+function createCard(item) {
+  const card = new Card(item.name, item.link, '#grid-template', handleOpenPopup);
   const cardElement = card.generateCard();
-  gridListElement.prepend(cardElement);
+  return cardElement
+}
+
+//отрисовка карточек из даты
+initialCards.forEach((items) => {
+  const newElements = createCard(items);
+  gridListElement.prepend(newElements);
 })
 
-
 //отрисовка новых карточек через сабмит
-function handleCardsFormSubmit(evt) { 
+function handleCardsFormSubmit(evt, items) { 
   evt.preventDefault(); //отмена дефолтного поведения, чтобы браузер не перезагрузился
-  const cardByPopup = new Card(placeInput.value, imgInput.value, handleOpenPopup);
+ 
+  const inputItems =
+    ({
+      name: placeInput.value,
+      link: imgInput.value
+    });
 
-  const cardByPopupElement = cardByPopup.generateCard();
-  gridListElement.prepend(cardByPopupElement);
 
+  const newAddElemets = createCard(inputItems, items);
+  gridListElement.prepend(newAddElemets);
 
   formAddElement.reset()
 
-  evt.submitter.classList.add('popup__submit-button_disabled') //деактивация кнопки сохранить
-  evt.submitter.disabled = 'disabled'
 
   closePopup(popupAddElement);
 }

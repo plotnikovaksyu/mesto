@@ -1,18 +1,19 @@
 class Card {
-    constructor(name, link, handleOpenPopup) {
+    constructor(name, link, templateSelector, handleOpenPopup) {
         this._name = name;
         this._link = link;
+        this._templateSelector = templateSelector;
         this._handleOpenPopup = handleOpenPopup;
     }
-
+   
     //получаем разметку из темплейта
     _getTemplate() {
         const cardElement = document
-            .querySelector('#grid-template')
+            .querySelector(this._templateSelector)
             .content
             .querySelector('.grid__list')
             .cloneNode(true);
-
+            
         //возвращаем DOM-элемент карточки
         return cardElement;
     }
@@ -23,7 +24,7 @@ class Card {
         this._element = this._getTemplate();
         this._setEventListeners();
 
-
+       
         this._gridImage.src = this._link;
         this._gridTitle.textContent = this._name;
         this._gridImage.alt = 'Фотография' + ' ' + this._name;
@@ -53,7 +54,7 @@ class Card {
             this._handleOpenPopup(this._link, this._name)
         })
     }
-
+  
 
     // функция поставить и удалить лайк
     _handelClickLikeButton = () => {
