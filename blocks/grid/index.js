@@ -1,6 +1,5 @@
 import Card from './card.js'
 import initialCards from './data.js';
-import formValid from './validData.js'
 import FormValidator from './formValidator.js'
 
 // DOM узлы //
@@ -121,14 +120,3 @@ function handleCardsFormSubmit(evt) {
 }
 
 formAddElement.addEventListener('submit', handleCardsFormSubmit);
-
-
-
-//валидация профайла
-const profileValidtion = new FormValidator(formValid, formProfileElement)
-profileValidtion.enableValidation()
-
-//валидация добавления карточки
-const addValidtion = new FormValidator(formValid, formAddElement)
-addValidtion.enableValidation()
-
