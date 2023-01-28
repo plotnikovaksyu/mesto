@@ -1,5 +1,5 @@
 import Card from './card.js'
-import initialCards from './data.js';
+import initialCards from './data.js.js';
 import FormValidator from './formValidator.js'
 
 // DOM узлы //

@@ -57,16 +57,22 @@ class FormValidator {
         this._submitButton.classList.add(this._inactiveButtonClass)
         this._submitButton.disabled = 'disabled'
     }
-    // _hideError = (input) => {
-       
+
+    //  _hideError = (input) => {
+    //     // const error = document.querySelector(`#${input.id}-error`);
+    //     // error.textContent = ''
+    //     console.log('test')
     // }
 
+
+
+    // //вызвать там, где навешиваем обраотчик открытия попапа
     // resetValidation() {
     //     this._toggleButtonState(); //<== управляем кнопкой ==
 
-        // this._inputList.forEach((inputElement) => {
-        //     this._hideError(inputElement) //<==очищаем ошибки ==
-        // });
+    //     this._inputList.forEach((inputElement) => {
+    //         this._hideError(inputElement) //<==очищаем ошибки ==
+    //     });
     // }
 
 
