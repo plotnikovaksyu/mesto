@@ -7,7 +7,6 @@ class FormValidator {
         this._formElement = formElement;
         this._submitButton = this._formElement.querySelector(this._submitButtonSelector);
         this._inputsList = [... this._formElement.querySelectorAll(this._inputSelector)]; //nodeList в массив
-        //this._error = document.querySelector(`#${input.id}-error`);
     }
 
     // функция проверки на валидность
@@ -24,64 +23,59 @@ class FormValidator {
 
 
     // функция включения и отключения кнопки сохранить
-    _toggleSubmitButton = (inputs) => {
-
-        const isFormValid = inputs.every(input => {
+        _toggleSubmitButton = () => {
+        const isFormValid = this._inputsList.every(input => {
             return input.validity.valid
         })
+       
         if (isFormValid) {
-            this._submitButton.classList.remove(this._inactiveButtonClass)
-            this._submitButton.disabled = ''
+            this._submitButton.classList.remove(this._inactiveButtonClass);
+            this._submitButton.disabled = false;
         }
         else {
-            this._toggleButtonState()
+            this._disactivateButtonState()
         }
     }
-
+    
 
     // функция обработки всех форм и активации валидации
     _setEventListeners = () => {
-
+        
 
         this._inputsList.forEach(input => {
             input.addEventListener('input', () => {
-                this._checkInputValidity(input)
-                this._toggleSubmitButton(this._inputsList)
+                this._checkInputValidity(input);
+                
+                this._toggleSubmitButton(); //не получается 
             })
         })
 
 
     }
 
-    _toggleButtonState = (evt) => {
-        this._submitButton.classList.add(this._inactiveButtonClass)
-        this._submitButton.disabled = 'disabled'
+    _disactivateButtonState = (evt) => {
+        this._submitButton.classList.add(this._inactiveButtonClass);
+        this._submitButton.disabled = true;
     }
 
-    //  _hideError = (input) => {
-    //     // const error = document.querySelector(`#${input.id}-error`);
-    //     // error.textContent = ''
-    //     console.log('test')
-    // }
+     _hideError = (input) => {
+        const error = document.querySelector(`#${input.id}-error`);
+        error.textContent = ''
+    }
 
 
 
     // //вызвать там, где навешиваем обраотчик открытия попапа
-    // resetValidation() {
-    //     this._toggleButtonState(); //<== управляем кнопкой ==
-
-    //     this._inputList.forEach((inputElement) => {
-    //         this._hideError(inputElement) //<==очищаем ошибки ==
-    //     });
-    // }
+    resetValidation() {
+        this._disactivateButtonState(); //<== управляем кнопкой
+        this._inputsList.forEach((inputElement) => {
+            this._hideError(inputElement) //<==очищаем ошибки
+        });
+        
+    }
 
 
     enableValidation = () => {
-        this._formElement.addEventListener('submit', (evt) => {
-            evt.preventDefault();
-            this._toggleButtonState(evt);
-        })
-
         this._setEventListeners()
     }
 }

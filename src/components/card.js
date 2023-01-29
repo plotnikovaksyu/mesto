@@ -58,13 +58,14 @@ class Card {
 
     // функция поставить и удалить лайк
     _handelClickLikeButton = () => {
-        this._likeButton.classList.toggle('grid__fill'); //дважды поиск одного дом элемента
+        this._likeButton.classList.toggle('grid__fill');
 
     }
 
     //функция удалить элемент
     _handelDeleteGridElement = () => {
-        this._element.closest('.grid__list').remove();
+        this._element.remove();
+        this._element = null;
     }
 }
 
