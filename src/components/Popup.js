@@ -19,7 +19,7 @@ export default class Popup {
   //приватный метод _closePopupByEsc, который содержит логику закрытия попапа клавишей Esc
   _closePopupByEsc = (evt) => {
     if (evt.key === 'Escape') {
-      this.closePopup(this._popup);
+      this.closePopup();
     }
   }
 
@@ -28,10 +28,10 @@ export default class Popup {
    
     this._popup.addEventListener('mousedown', (evt) => {
       if (evt.target.classList.contains('popup_is-opened')) {
-        this.closePopup(this._popup);
+        this.closePopup();
       }
       if (evt.target.classList.contains('popup__close')) {
-        this.closePopup(this._popup);
+        this.closePopup();
       }
     })
   }

@@ -15,15 +15,14 @@ export default class UserInfo {
     }
 
 
-    //метод принимает новые данные пользователя и добавляет их на страницу   
-    setUserInfo(info) {
-        this._nameProfile.textContent = info.name;
-        this._discriptionProfile.textContent = info.about;
-        this._avatarProfile.src = info.avatar
-        this._id = info._id
+    //метод принимает новые данные пользователя и добавляет их на страницу
+    setUserInfo({ name, about, avatar, _id }) {
+        this._nameProfile.textContent = name;
+        this._discriptionProfile.textContent = about;
+        this._avatarProfile.src = avatar
+        this._id = _id
         //console.log(this._id)
     }
-
 
     returnMyId() {
         return this._id 

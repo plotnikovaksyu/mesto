@@ -119,8 +119,8 @@ const cardList = new Section({
 //открытие попапа редактирования профиля с существующими значениями
 popupProfileOpenButtonElement.addEventListener('click', () => {
   const profile = userInfo.getUserInfo()
-  nameInput.value = profile.name;
-  discriptionInput.value = profile.about;
+  // nameInput.value = profile.name;
+  // discriptionInput.value = profile.about;
   popupProfileForm.openPopup()
   profileValidtion.resetValidation();
 })
@@ -129,7 +129,7 @@ popupProfileOpenButtonElement.addEventListener('click', () => {
 //попап с описанием профиля
 const popupProfileForm = new PopupWithForm({
   submit: (info) => {
-    popupProfileForm.setSubmitButtonText('Сохранение...')
+    popupProfileForm.renderLoading(true)
 
     api.editProfilePopup(info)
       .then((res) => {
@@ -140,7 +140,7 @@ const popupProfileForm = new PopupWithForm({
         console.log((`${err}`))
       })
       .finally(() => {
-        popupProfileForm.setSubmitButtonText('Сохранить')
+        popupProfileForm.renderLoading(false)
       })
   }
 },
@@ -163,7 +163,7 @@ popupAddOpenButtonElement.addEventListener('click', () => {
 //попап с добавлением карточки
 const popupAddForm = new PopupWithForm({
   submit: (values) => {
-    popupAddForm.setSubmitButtonText('Сохранение...')
+    popupAddForm.renderLoading(true)
     api.addNewCard(values)
       .then((res) => {
         cardList.addItem(createCard(res));
@@ -175,7 +175,7 @@ const popupAddForm = new PopupWithForm({
         console.log((`${err}`))
       })
       .finally(() => {
-        popupAddForm.setSubmitButtonText('Сохранить')
+        popupAddForm.renderLoading(false)
       })
   }
 },
@@ -195,7 +195,7 @@ avatarPopupOpenButton.addEventListener('click', () => {
 //создание экземпляра класса для редактирования аватара
 const avatarPopup = new PopupWithForm({
   submit: (info) => {
-    avatarPopup.setSubmitButtonText('Сохранение...')
+    avatarPopup.renderLoading(true)
     api.updateAvatar(info)
       .then((res) => {
         userInfo.setUserInfo(res);
@@ -207,7 +207,7 @@ const avatarPopup = new PopupWithForm({
         console.log((`${err}`))
       })
       .finally(() => {
-        avatarPopup.setSubmitButtonText('Сохранить')
+        avatarPopup.renderLoading(false)
       })
   }
 }, '.popup_avatar')
