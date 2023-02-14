@@ -46,7 +46,7 @@ class FormValidator {
             input.addEventListener('input', () => {
                 this._checkInputValidity(input);
                 
-                this._toggleSubmitButton(); //не получается 
+                this._toggleSubmitButton();
             })
         })
 

@@ -11,6 +11,7 @@ export const formValid = {
 // }
 
 
+    
 
 // DOM узлы //
 export const popupProfile = document.querySelector('.popup_profile');
@@ -23,3 +24,5 @@ export const placeInput = popupAddElement.querySelector('.popup__input_place');
 export const imgInput = popupAddElement.querySelector('.popup__input_img');
 export const popupAddOpenButtonElement = document.querySelector('.profile__add-button');
 export const formAddElement = document.querySelector('.popup__form_add');
+export const formAvatarElement = document.querySelector('.popup__form_avatar');
+export const avatarPopupOpenButton = document.querySelector('.profile__avatar-button');

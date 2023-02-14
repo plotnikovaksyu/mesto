@@ -1,24 +1,38 @@
 import './index.css';
 import Card from '../components/Card.js'
-import initialCards from '../utils/data.js';
+// import initialCards from '../utils/data.js';
 import {
   formValid,
-  //popupProfile,
   popupProfileOpenButtonElement,
   formProfileElement,
   nameInput,
   discriptionInput,
- // popupAddElement,
-  placeInput,
-  imgInput,
   popupAddOpenButtonElement,
-  formAddElement
+  formAddElement,
+  formAvatarElement,
+  avatarPopupOpenButton,
 } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
 import PopupWithImage from '../components/PopupWithImage.js'
 import UserInfo from '../components/UserInfo.js'
 import PopupWithForm from '../components/PopupWithForm.js';
+import { api } from '../components/Api.js'
+import PopuppWithConfirmation from '../components/PopupWithConfirmation.js'
+
+
+
+//общий запрос для отрисовки карточек и загрузки данных пользователя
+Promise.all([api.getUserData(), api.getInitialCards()])
+  .then(([res, cards]) => {
+    userInfo.setUserInfo(res)
+    cardList.rendererItems(cards)
+  })
+  .catch((err) => {
+    console.log((`${err}`))
+  })
+
+
 
 //попап с увеличенной картинкой
 const zoomPopup = new PopupWithImage('.popup_img')
@@ -30,26 +44,70 @@ function handleOpenPopup(link, name) {
 }
 
 
-
-
 //инфа о пользователе на странице
 const userInfo = new UserInfo({
   name: '.profile__title',
-  discription: '.profile__discription'
+  about: '.profile__discription',
+  avatar: '.profile__avatar',
 })
 
+//функция отрисовки карточек
+function createCard(data) {
+  const card = new Card(
+    {
+      userId: userInfo.returnMyId(),
+      templateSelector: '#grid-template',
+      
+      handleDeleteClick: (_id) => { //подтверждение удаления карточки через попап
+        popupDeleteCards.openPopup()
+        popupDeleteCards.handelConfirmSubmit(() => {
+          popupDeleteCards.setSubmitButtonText('Удаление...')
+          api.deleteCard(_id)
+            .then(() => {
+              card.handelDeleteGridElement()
+              popupDeleteCards.closePopup()
+            })
+            .catch((err) => {
+              console.log((`${err}`))
+            })
+            .finally(() => {
+              popupDeleteCards.setSubmitButtonText('Да')
+            })
+        })
+      },
+      handleLikeClick: (_id) => {
+        if (card.isLikedByMe()) { //удалить лайк
+          api.deleteLike(_id)
+            .then((res) => {
+              card.deleteLike(res.likes.length)
+            })
+            .catch((err) => {
+              console.log((`${err}`))
+            })
+        }
+        else { //поставить лайк
+          api.setLike(_id)
+            .then((res) => {
+              card.putLike(res.likes.length)
+            })
+            .catch((err) => {
+              console.log((`${err}`))
+            })
+        }
 
-//создание карточек
-function createCard(item) {
-  const card = new Card(item.name, item.link, '#grid-template', handleOpenPopup);
+      },
+    },
+    data,
+    handleOpenPopup,
+  );
+
   const cardElement = card.generateCard();
   return cardElement
 }
 
 
-//отрисовка карточек из списка
+
 const cardList = new Section({
-  items: initialCards,
   renderer: (item) => {
     cardList.addItem(createCard(item));
   }
@@ -57,31 +115,42 @@ const cardList = new Section({
   '.grid__elements'
 );
 
-cardList.rendererItems();
+
+//открытие попапа редактирования профиля с существующими значениями
+popupProfileOpenButtonElement.addEventListener('click', () => {
+  const profile = userInfo.getUserInfo()
+  nameInput.value = profile.name;
+  discriptionInput.value = profile.about;
+  popupProfileForm.openPopup()
+  profileValidtion.resetValidation();
+})
+
 
 //попап с описанием профиля
 const popupProfileForm = new PopupWithForm({
   submit: (info) => {
-    userInfo.setUserInfo(info);
-    popupProfileForm.closePopup();
+    popupProfileForm.setSubmitButtonText('Сохранение...')
+
+    api.editProfilePopup(info)
+      .then((res) => {
+        userInfo.setUserInfo(res);
+        popupProfileForm.closePopup();
+      })
+      .catch((err) => {
+        console.log((`${err}`))
+      })
+      .finally(() => {
+        popupProfileForm.setSubmitButtonText('Сохранить')
+      })
   }
 },
   '.popup_profile'
-
 )
 
 popupProfileForm.setEventListeners()
 
 
 
-//открытие попапа редактирования профиля с существующими значениями
-popupProfileOpenButtonElement.addEventListener('click', () => {
-  const profile = userInfo.getUserInfo()
-  nameInput.value = profile.name;
-  discriptionInput.value = profile.discription;
-  popupProfileForm.openPopup()
-  profileValidtion.resetValidation();
-})
 
 //открытие попапа для добаления карточки
 popupAddOpenButtonElement.addEventListener('click', () => {
@@ -90,17 +159,68 @@ popupAddOpenButtonElement.addEventListener('click', () => {
 })
 
 
+
 //попап с добавлением карточки
 const popupAddForm = new PopupWithForm({
   submit: (values) => {
-    cardList.addItem(createCard({name: values.place, link: values.img}));
-    formAddElement.reset() //сбрасываем поля
-    popupAddForm.closePopup();
+    popupAddForm.setSubmitButtonText('Сохранение...')
+    api.addNewCard(values)
+      .then((res) => {
+        cardList.addItem(createCard(res));
+        formAddElement.reset() //сбрасываем поля
+        popupAddForm.closePopup();
+      })
+
+      .catch((err) => {
+        console.log((`${err}`))
+      })
+      .finally(() => {
+        popupAddForm.setSubmitButtonText('Сохранить')
+      })
   }
 },
   '.popup_add')
 
 popupAddForm.setEventListeners()
+
+
+
+
+//открытие попапапа для редактирования аватара
+avatarPopupOpenButton.addEventListener('click', () => {
+  avatarPopup.openPopup();
+  avatarValidation.resetValidation()
+})
+
+//создание экземпляра класса для редактирования аватара
+const avatarPopup = new PopupWithForm({
+  submit: (info) => {
+    avatarPopup.setSubmitButtonText('Сохранение...')
+    api.updateAvatar(info)
+      .then((res) => {
+        userInfo.setUserInfo(res);
+        formAvatarElement.reset() //сбрасываем поля
+        avatarPopup.closePopup();
+      })
+
+      .catch((err) => {
+        console.log((`${err}`))
+      })
+      .finally(() => {
+        avatarPopup.setSubmitButtonText('Сохранить')
+      })
+  }
+}, '.popup_avatar')
+
+avatarPopup.setEventListeners()
+
+
+
+
+//создание класса попап для подтверждения удаления
+const popupDeleteCards = new PopuppWithConfirmation('.popup_checking')
+
+popupDeleteCards.setEventListeners()
 
 
 
@@ -111,3 +231,7 @@ profileValidtion.enableValidation()
 //валидация добавления карточки
 const cardsValidtion = new FormValidator(formValid, formAddElement)
 cardsValidtion.enableValidation()
+
+//валидация изменения аватара
+const avatarValidation = new FormValidator(formValid, formAvatarElement)
+avatarValidation.enableValidation()

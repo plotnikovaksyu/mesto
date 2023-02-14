@@ -1,14 +1,14 @@
 export default class Section {
-    //constructor({ initialCards, renderer }, templateSelector) {
-    constructor({ items, renderer }, containerSelector) {
-        this._renderedItems = items;
+    constructor({ renderer }, containerSelector) {
         this._renderer = renderer;
         this._container = document.querySelector(containerSelector);
+
     }
 
-    //  метод, который отвечает за отрисовку всех элементов 
-    rendererItems() {
-        this._renderedItems.forEach(item => {
+
+     //метод, который отвечает за отрисовку всех элементов 
+    rendererItems(items) {
+        items.forEach(item => {
             this._renderer(item);
         });
     };
@@ -18,6 +18,3 @@ export default class Section {
         this._container.prepend(element);
     };
 }
-
-
-
