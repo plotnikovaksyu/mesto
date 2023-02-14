@@ -8,6 +8,7 @@ export default class PopupWithForm extends Popup {
         this._submit = submit;
         this._submitButton = this._popup.querySelector('.popup__submit-button');
         this._submitButtonText = this._submitButton.textContent;
+        
     }
 
     openPopup() {
@@ -47,13 +48,11 @@ export default class PopupWithForm extends Popup {
     }
 
 
-
-    // setInputValues(data) {
-    //     this._inputs.forEach((input) => {
-    //         input.value = data[input.name];
-    //         //input.about
-    //     })
-    //     console.log(input.value)
-    //}
+//добавлять данные профайла в инпуты
+    setInputValues(data) {
+        this._inputs.forEach((input) => {
+           input.value = data[input.name];
+        })
+    }
 }
 

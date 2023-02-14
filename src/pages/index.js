@@ -4,12 +4,7 @@ import Card from '../components/Card.js'
 import {
   formValid,
   popupProfileOpenButtonElement,
-  formProfileElement,
-  nameInput,
-  discriptionInput,
   popupAddOpenButtonElement,
-  formAddElement,
-  formAvatarElement,
   avatarPopupOpenButton,
 } from '../utils/constants.js';
 import FormValidator from '../components/FormValidator.js';
@@ -119,10 +114,11 @@ const cardList = new Section({
 //открытие попапа редактирования профиля с существующими значениями
 popupProfileOpenButtonElement.addEventListener('click', () => {
   const profile = userInfo.getUserInfo()
+  popupProfileForm.setInputValues(profile)
   // nameInput.value = profile.name;
   // discriptionInput.value = profile.about;
   popupProfileForm.openPopup()
-  profileValidtion.resetValidation();
+  formValidators['form-edit'].resetValidation()
 })
 
 
@@ -151,11 +147,10 @@ popupProfileForm.setEventListeners()
 
 
 
-
 //открытие попапа для добаления карточки
 popupAddOpenButtonElement.addEventListener('click', () => {
   popupAddForm.openPopup();
-  cardsValidtion.resetValidation()
+  formValidators['form-add'].resetValidation()
 })
 
 
@@ -167,7 +162,6 @@ const popupAddForm = new PopupWithForm({
     api.addNewCard(values)
       .then((res) => {
         cardList.addItem(createCard(res));
-        formAddElement.reset() //сбрасываем поля
         popupAddForm.closePopup();
       })
 
@@ -189,7 +183,7 @@ popupAddForm.setEventListeners()
 //открытие попапапа для редактирования аватара
 avatarPopupOpenButton.addEventListener('click', () => {
   avatarPopup.openPopup();
-  avatarValidation.resetValidation()
+  formValidators['form-avatar'].resetValidation()
 })
 
 //создание экземпляра класса для редактирования аватара
@@ -199,7 +193,6 @@ const avatarPopup = new PopupWithForm({
     api.updateAvatar(info)
       .then((res) => {
         userInfo.setUserInfo(res);
-        formAvatarElement.reset() //сбрасываем поля
         avatarPopup.closePopup();
       })
 
@@ -224,14 +217,22 @@ popupDeleteCards.setEventListeners()
 
 
 
-//валидация профайла
-const profileValidtion = new FormValidator(formValid, formProfileElement)
-profileValidtion.enableValidation()
+// //валидация профайла
 
-//валидация добавления карточки
-const cardsValidtion = new FormValidator(formValid, formAddElement)
-cardsValidtion.enableValidation()
+const formValidators = {}
 
-//валидация изменения аватара
-const avatarValidation = new FormValidator(formValid, formAvatarElement)
-avatarValidation.enableValidation()
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(formValid, formElement)
+// получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+
+   // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+   validator.enableValidation();
+  });
+};
+
+enableValidation(formValid);
