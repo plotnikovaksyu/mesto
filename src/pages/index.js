@@ -28,7 +28,6 @@ Promise.all([api.getUserData(), api.getInitialCards()])
   })
 
 
-
 //попап с увеличенной картинкой
 const zoomPopup = new PopupWithImage('.popup_img')
 zoomPopup.setEventListeners()
